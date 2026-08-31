@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Hewarat",
+        "arabicName": "الحوارات" ,
+        "slug": "hewarat"
+    },
+    {
+        "id": 2,
+        "name": "Qiratul Rashida",
+        "arabicName": "القراءة الراشدة",
+        "slug": "qiratul-rashida"
+    },
+    {
+        "id": 3,
+        "name": "Lughatul Arabiyya",
+        "arabicName": "اللغة العربية",
+        "slug": "lughatul-arabiyya"
+    },
+    {
+        "id": 4,
+        "name": "Tajweed",
+        "arabicName": "التجويد",
+        "slug": "tajweed"
+    },
+    {
+        "id": 5,
+        "name": "Common things",
+        "arabicName": "أشياء شائعة",
+        "slug": "common-things"
+    }
+]
