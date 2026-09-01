@@ -1,0 +1,50 @@
+{
+  "id": 1,
+  "title": "Contents al Lughatul Arabiya",
+  "arabicTitle": "العنوانات اللغوية",
+  "slug": "lughatul-arabiya/content",
+  "contents": [
+    {
+      "id": 1,
+      "title": "Conversations",
+      "arabicTitle": "مکالمات",
+      "slug": "lughatul-arabiya/conversations",
+      "description": "A collection of conversations in Arabic with Urdu translations.",
+      "contents": [
+        {
+          "id": 1,
+          "title": "About Mobile Phones",
+          "arabicTitle": "عن الهواتف المحمولة",
+          "slug": "about-mobile-phones"
+        },
+        {
+          "id": 2,
+          "title": "Weather",
+          "arabicTitle": "الجو",
+          "slug": "weather"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Time",
+      "arabicTitle": "الوقت",
+      "slug": "time",
+      "description": "A description of time in Arabic with Urdu translations.",
+      "contents": [
+        {
+          "id": 1,
+          "title": "About Mobile Phones",
+          "arabicTitle": "عن الهواتف المحمولة",
+          "slug": "about-mobile-phones"
+        },
+        {
+          "id": 2,
+          "title": "Weather",
+          "arabicTitle": "الجو",
+          "slug": "weather"
+        }
+      ]
+    }
+  ]
+}

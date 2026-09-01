@@ -1,0 +1,43 @@
+{
+  "id": 1,
+  "title": "Lughatul Arabiya Conversations",
+  "arabicTitle": "محادثات اللغة العربية",
+  "conversations": [
+    {
+      "id": 1,
+      "title": "Sample Conversation",
+      "arabicTitle": "محادثة نموذجية",
+      "slug": "sample-conversation",
+      "content": {
+        "translations": [
+          {
+            "arabic": "مَرْحَبًا",
+            "urdu": "ہیلو"
+          },
+          {
+            "arabic": "كَيْفَ حَالُكَ؟",
+            "urdu": "آپ کیسے ہیں؟"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "title": "Another Conversation",
+      "arabicTitle": "محادثة أخرى",
+      "slug": "another-conversation",
+      "content": {
+        "translations": [
+          {
+            "arabic": "صَبَاحُ الْخَيْرِ",
+            "urdu": "صبح بخیر"
+          },
+          {
+            "arabic": "مَسَاءُ الْخَيْرِ",
+            "urdu": "شام بخیر"
+          }
+        ]
+      }
+    }
+  ]
+}
