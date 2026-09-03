@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Kaifa Aqdi Yawmi",
+    "arabicTitle": "كَيْفَ أَقْضِي يَوْمِي",
+    "slug": "kaifa-aqdi-yawmi",
+    "content": "./01-kaifa-aqdi-yawmi.json"
+  },
+  {
+    "id": 2,
+    "title": "Lamma Balaghtu al-Sabiata Min Umri",
+    "arabicTitle": "لَمَّا بَلَغْتُ السَّابِعَةَ مِنْ عُمْرِي",
+    "slug": "lamma-balaghtu-al-sabia-min-umri",
+    "content": "./02-lamma-balaghtu-al-sabia-min-umri.json"
+  },
+  {
+    "id": 3,
+    "title": "Al-Namla",
+    "arabicTitle": "النَّمْلَةُ",
+    "slug": "al-namla",
+    "content": "./03-al-namla.json"
+  },
+  {
+    "id": 4,
+    "title": "Fil Souq",
+    "arabicTitle": "فِي السُّوقِ",
+    "slug": "fil-souq",
+    "content": "./04-fil-souq.json"
+  }
+]

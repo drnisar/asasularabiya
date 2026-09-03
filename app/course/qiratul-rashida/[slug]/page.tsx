@@ -1,15 +1,15 @@
 import { Box, Container, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import WordMeaning from "../../_components/WordMeaning";
-import hewaratData from "@/public/data/hewarat.json";
+import { getQiratLesson } from "@/data/qirat-ur-rashida";
 
-type HewaratDynamicPageProps = {
+type PageQiratulRashidaProps = {
   params: Promise<{ slug: string }>;
 };
 
-const HewaratDynamicPage = async ({ params }: HewaratDynamicPageProps) => {
+const PageQiratulRashida = async ({ params }: PageQiratulRashidaProps) => {
   const { slug } = await params;
-  const lesson = hewaratData.find((item) => item.slug === slug);
+  const lesson = await getQiratLesson(slug);
 
   if (!lesson) notFound();
 
@@ -18,7 +18,7 @@ const HewaratDynamicPage = async ({ params }: HewaratDynamicPageProps) => {
       <Box pt={{ initial: "6", sm: "8" }}>
         <Container size="3" px={{ initial: "4", sm: "6" }}>
           <Text as="p" color="orange" size="2" weight="bold" mb="2">
-            دروس المحادثة
+            قراءة الرشيدة
           </Text>
           <Heading size={{ initial: "7", sm: "9" }} mb="2">
             {lesson.arabicTitle}
@@ -33,4 +33,4 @@ const HewaratDynamicPage = async ({ params }: HewaratDynamicPageProps) => {
   );
 };
 
-export default HewaratDynamicPage;
+export default PageQiratulRashida;

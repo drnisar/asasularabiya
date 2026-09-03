@@ -5,6 +5,7 @@ import React from "react";
 type Content = {
   id: number;
   slug: string;
+  slugPrefix?: string;
   arabicTitle: string;
   title: string;
 };
@@ -13,9 +14,10 @@ interface Props {
   contents: Content[];
   title?: string;
   arabicTitle?: string;
+  slugPrefix?: string;
 }
 
-const ContentList = ({ contents, title, arabicTitle }: Props) => {
+const ContentList = ({ contents, title, arabicTitle, slugPrefix }: Props) => {
   return (
     <Box py={{ initial: "6", sm: "8" }}>
       <Container size="3" px={{ initial: "4", sm: "6" }}>
@@ -32,7 +34,7 @@ const ContentList = ({ contents, title, arabicTitle }: Props) => {
           <Flex direction="column" gap="2">
             {contents.map((content) => (
               <Link
-                href={`/course/lughatul-arabiya/${content.slug}`}
+                href={`/course/${slugPrefix ?? ""}${content.slug}`}
                 key={content.id}
               >
                 <Flex
