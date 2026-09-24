@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, Card, Table, Text } from "@radix-ui/themes";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Flex,
+  Table,
+  Text,
+} from "@radix-ui/themes";
 import React, { useState } from "react";
 
 type SentencePair = {
@@ -7,75 +15,73 @@ type SentencePair = {
   urdu: string;
 };
 
-const sentence: SentencePair[] = [
-  {
-    arabic: "اذھب",
-    urdu: "میں جاتا ہوں",
-  },
-  {
-    arabic: "أنا ذاهب",
-    urdu: "میں جا رہا ہوں",
-  },
-];
-const SentenceTranslation = () => {
-  const [revealedRows, setRevealedRows] = useState<number[]>([]);
+// const sentence: SentencePair[] = [
+//   {
+//     arabic: "اذھب",
+//     urdu: "میں جاتا ہوں",
+//   },
+//   {
+//     arabic: "أنا ذاهب",
+//     urdu: "میں جا رہا ہوں",
+//   },
+// ];
+interface Props {
+  sentencePairs: SentencePair[];
+}
+const SentenceTranslation = ({ sentencePairs }: Props) => {
+  const [rowNumber, setRowNumber] = useState<number | null>(null);
+  const [language, setLanguage] = useState<"arabic" | "urdu">("urdu");
 
   const toggleRow = (index: number) => {
-    setRevealedRows((rows) =>
-      rows.includes(index)
-        ? rows.filter((row) => row !== index)
-        : [...rows, index],
-    );
+    setRowNumber((prev) => (prev === index ? null : index));
   };
 
   return (
-    <Box p={{ initial: "3", sm: "5" }}>
-      <Card size={{ initial: "1", sm: "2" }}>
-        <Table.Root variant="surface" size={{ initial: "1", sm: "2" }}>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell
-                style={{ width: "1%", whiteSpace: "nowrap" }}
+    <>
+      <Container>
+        <Button
+          onClick={() => setLanguage(language === "arabic" ? "urdu" : "arabic")}
+          my="3"
+          mx="6"
+        >
+          {language === "arabic"
+            ? "عربی میں تبدیل کریں"
+            : "اردو میں تبدیل کریں"}
+        </Button>
+        <Box p={{ initial: "3", sm: "5" }}>
+          {sentencePairs.map((s, index) => {
+            const isRevealed = rowNumber === index;
+            return (
+              <Flex
+                key={index}
+                mb="2"
+                px="4"
+                justify="between"
+                align="center"
+                maxWidth="468px"
+                className="border-b-gray-500 shadow-sm"
               >
-                #
-              </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>جملہ</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>عمل</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {sentence.map((sentencePair, index) => {
-              const isRevealed = revealedRows.includes(index);
-              return (
-                <Table.Row key={sentencePair.arabic}>
-                  <Table.RowHeaderCell style={{ whiteSpace: "nowrap" }}>
-                    <Text color="gray">{index + 1}</Text>
-                  </Table.RowHeaderCell>
-                  <Table.Cell>
-                    <Text
-                      size={{ initial: "3", sm: "4" }}
-                      weight={isRevealed ? "bold" : "regular"}
-                    >
-                      {isRevealed ? sentencePair.arabic : sentencePair.urdu}
-                    </Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Button
-                      color="orange"
-                      size={{ initial: "1", sm: "2" }}
-                      variant={isRevealed ? "soft" : "solid"}
-                      onClick={() => toggleRow(index)}
-                    >
-                      {isRevealed ? "اردو" : "عربی"}
-                    </Button>
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
-          </Table.Body>
-        </Table.Root>
-      </Card>
-    </Box>
+                <Text
+                  size={{ initial: "3", sm: "4", md: "5" }}
+                  weight={isRevealed ? "bold" : "regular"}
+                >
+                  {isRevealed
+                    ? s[language]
+                    : s[language === "arabic" ? "urdu" : "arabic"]}
+                </Text>
+                <Button
+                  size="2"
+                  variant="ghost"
+                  onClick={() => toggleRow(index)}
+                >
+                  {isRevealed ? "چھپائیں" : "دکھائیں"}
+                </Button>
+              </Flex>
+            );
+          })}
+        </Box>
+      </Container>
+    </>
   );
 };
 

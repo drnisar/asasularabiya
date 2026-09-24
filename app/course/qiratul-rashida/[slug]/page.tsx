@@ -28,7 +28,14 @@ const PageQiratulRashida = async ({ params }: PageQiratulRashidaProps) => {
           </Text>
         </Container>
       </Box>
-      <WordMeaning wordMeaningArray={lesson.content.wordMeanings} />
+      <WordMeaning
+        wordMeaningArray={lesson.content.wordMeanings.map(
+          ({ word, meaning }) => ({
+            arabic: word,
+            urdu: meaning,
+          }),
+        )}
+      />
     </main>
   );
 };

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Weather",
+    "arabic": "الطقس",
+    "urdu": "موسم",
+    "slug": "weather",
+    "content": "./01-weather.json"
+  },
+  {
+    "id": 2,
+    "title": "Mobile Phone",
+    "arabic": "الهاتف المحمول",
+    "urdu": "موبائل فون",
+    "slug": "mobile-phone",
+    "content": "./02-mobile-phone.json"
+  },
+  {
+    "id": 3,
+    "title": "Social Media",
+    "arabic": "وسائل التواصل الاجتماعي",
+    "urdu": "سوشل میڈیا",
+    "slug": "social-media",
+    "content": "./03-social-media.json"
+  }
+]

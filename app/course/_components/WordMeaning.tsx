@@ -13,8 +13,8 @@ import {
 import { useState } from "react";
 
 type WordMeaning = {
-  word: string;
-  meaning: string;
+  arabic: string;
+  urdu: string;
 };
 
 interface Props {
@@ -85,20 +85,23 @@ const WordMeaning = ({ wordMeaningArray }: Props) => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {wordMeaningArray.map(({ word, meaning }, index) => {
-              const isRevealed = revealedWord === word;
-              const urduValue = isArabicToUrdu && !isRevealed ? "۔۔۔" : meaning;
-              const arabicValue = !isArabicToUrdu && !isRevealed ? "۔۔۔" : word;
+            {wordMeaningArray.map(({ arabic, urdu }, index) => {
+              const isRevealed = revealedWord === arabic;
+              const urduValue = isArabicToUrdu && !isRevealed ? "۔۔۔" : urdu;
+              const arabicValue =
+                !isArabicToUrdu && !isRevealed ? "۔۔۔" : arabic;
               return (
-                <Table.Row key={word}>
+                <Table.Row key={arabic}>
                   <Table.Cell>
                     <Button
-                      aria-label={`${word} کا ترجمہ ${isRevealed ? "چھپائیں" : "دکھائیں"}`}
+                      aria-label={`${arabic} کا ترجمہ ${isRevealed ? "چھپائیں" : "دکھائیں"}`}
                       color="orange"
                       highContrast
                       size={{ initial: "1", sm: "2" }}
                       variant={isRevealed ? "soft" : "solid"}
-                      onClick={() => setRevealedWord(isRevealed ? null : word)}
+                      onClick={() =>
+                        setRevealedWord(isRevealed ? null : arabic)
+                      }
                     >
                       {isRevealed ? "چھپائیں" : "دکھائیں"}
                     </Button>

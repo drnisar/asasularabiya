@@ -1,7 +1,10 @@
 import { Box, Container, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import WordMeaning from "../../_components/WordMeaning";
-import hewaratData from "@/public/data/hewarat.json";
+import { prisma } from "@/lib/prisma";
+import { hewaratLessons } from "@/app/course/actions/hewarat";
+import FormWordMeaning from "../../_components/FormWordMeaning";
+import Link from "next/link";
 
 type HewaratDynamicPageProps = {
   params: Promise<{ slug: string }>;
@@ -9,7 +12,16 @@ type HewaratDynamicPageProps = {
 
 const HewaratDynamicPage = async ({ params }: HewaratDynamicPageProps) => {
   const { slug } = await params;
-  const lesson = hewaratData.find((item) => item.slug === slug);
+
+  // const lesson = await prisma.lesson.findUnique({
+  //   where: {
+  //     slug,
+  //   },
+  //   include: {
+  //     wordMeanings: true,
+  //   },
+  // });
+  const lesson = await hewaratLessons(slug);
 
   if (!lesson) notFound();
 
@@ -28,7 +40,9 @@ const HewaratDynamicPage = async ({ params }: HewaratDynamicPageProps) => {
           </Text>
         </Container>
       </Box>
-      <WordMeaning wordMeaningArray={lesson.content.wordMeanings} />
+      <WordMeaning wordMeaningArray={lesson.wordMeanings} />
+      <Link href={`/course/hewarat/edit/${slug}`}>Edit Lesson</Link>
+      <FormWordMeaning lessonId={lesson.id} />
     </main>
   );
 };

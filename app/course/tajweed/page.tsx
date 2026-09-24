@@ -1,39 +1,25 @@
-import React from "react";
-import ContentList from "../_components/ContentList";
-import tajweed from "@/public/data/tajweed.json";
-import TajweedLessons from "../_components/TajweedLessons";
+import TajweedLesson from "../_components/TajweedLesson";
+import { prisma } from "@/lib/prisma";
+import DefinitionEntryForm from "../dataEntry/DefinitionEntryForm";
+import { Container } from "@radix-ui/themes/dist/cjs/components/index.js";
+import Link from "next/link";
 
-interface Params {
-  searchParams: Promise<{ division: string }>;
-}
-
-const PageTajweed = async ({ searchParams }: Params) => {
-  const divisions = tajweed.divisions;
-  const { division } = await searchParams;
-
-  const filteredDivisions = divisions.filter((d) => d.slug === division);
+const PageTajweed = async () => {
+  const lessons = await prisma.lesson.findMany({
+    where: {
+      subjectId: 4,
+    },
+  });
   return (
     <>
-      <h1>{division}</h1>
-      <div>
-        {filteredDivisions.flatMap((div) =>
-          div.lessons.map((lesson) => (
-            <TajweedLessons
-              key={lesson.id}
-              lesson={{
-                id: lesson.id,
-                title: lesson.title,
-                arabicTitle: lesson.arabicTitle,
-                urduTitle: lesson.urduTitle,
-                definition: lesson.definition,
-                explanation: lesson.explanation,
-                examples: lesson.examples,
-                practice: lesson.practice,
-              }}
-            />
-          )),
-        )}
-      </div>
+      <Container>
+        <div>
+          {lessons.map((lesson) => (
+            <TajweedLesson key={lesson.id} lesson={lesson} />
+          ))}
+        </div>
+        <Link href={`/course/tajweed/add`}>Add Tajweed Lessons</Link>
+      </Container>
     </>
   );
 };
