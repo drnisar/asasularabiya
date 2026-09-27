@@ -1,10 +1,9 @@
 "use client";
 
 import { updateUserRole } from "@/lib/auth/user";
-import { Role } from "@prisma/client";
+import { Role } from "@/lib/appConstants";
 import { Select } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
-import React from "react";
 interface Props {
   defaultRole: Role;
   roles: Role[];

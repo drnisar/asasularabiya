@@ -3,7 +3,7 @@
 import { Box, Button, Flex, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
 import { createWordMeaning } from "@/app/course/actions/wordMeaning";
-import type { WordMeaning } from "@prisma/client";
+import type { WordMeaning } from "@/prisma/client";
 import { useRouter } from "next/navigation";
 interface Props {
   lessonId: number;
