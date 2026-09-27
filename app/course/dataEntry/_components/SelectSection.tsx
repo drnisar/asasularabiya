@@ -1,7 +1,5 @@
 "use client";
-import React, { useState } from "react";
 import { Select } from "@radix-ui/themes";
-import { useRouter } from "next/navigation";
 
 type selectObject = {
   id: number;
@@ -14,8 +12,6 @@ interface Props {
 }
 
 const SelectSection = ({ selectObjects, defaultValue, onChange }: Props) => {
-  const router = useRouter();
-
   return (
     <Select.Root
       defaultValue={defaultValue}

@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Box,
-  Card,
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-} from "@radix-ui/themes";
+import { Badge, Box, Card, Container, Heading, Text } from "@radix-ui/themes";
 import type { Lesson } from "@prisma/client";
 import Link from "next/link";
 import MarkdownRenderer from "./MarkdownRenderer";

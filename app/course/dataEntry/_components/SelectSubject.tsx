@@ -15,13 +15,7 @@ interface Props {
   clearSearchParams?: () => void;
 }
 
-const SelectSubject = ({
-  selectObjects,
-  defaultValue,
-  paramKey,
-  slug,
-  clearSearchParams,
-}: Props) => {
+const SelectSubject = ({ selectObjects, defaultValue, paramKey }: Props) => {
   const router = useRouter();
   return (
     <Select.Root

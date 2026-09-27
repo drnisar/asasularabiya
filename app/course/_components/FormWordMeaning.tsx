@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
 
-import { Box, Button, Container, Flex, TextField } from "@radix-ui/themes";
+import { Box, Button, Flex, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
 import { createWordMeaning } from "@/app/course/actions/wordMeaning";
 import type { WordMeaning } from "@prisma/client";

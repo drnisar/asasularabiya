@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import React from "react";
 import DefinitionEntryForm from "../../dataEntry/DefinitionEntryForm";
-import TajweedLesson from "../../_components/TajweedLesson";
 
 const PageTajweedEdit = async ({
   params,

@@ -1,15 +1,5 @@
-import {
-  Badge,
-  Box,
-  Card,
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Text,
-} from "@radix-ui/themes";
+import { Container } from "@radix-ui/themes";
 import Link from "next/link";
-import LessonForm from "../_components/LessonForm";
 
 import { prisma } from "@/lib/prisma";
 import HewaratLessonsList from "../_components/HewaratLessonsList";
@@ -20,9 +10,6 @@ const HewaratPage = async ({
   searchParams: Promise<{ edit: string }>;
 }) => {
   const search = await searchParams;
-  const subject = await prisma.subject.findUnique({
-    where: { slug: "hewarat" },
-  });
 
   const lesson = await prisma.lesson.findMany({
     where: { subjectId: 1 },

@@ -1,18 +1,11 @@
 "use client";
 
-import { Role, User } from "@prisma/client";
-import { Button } from "@radix-ui/themes";
+import { Role } from "@prisma/client";
 import LogoutButton from "@/app/auth/_components/LogoutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-// import subjects from "@/public/data/subjects.json";
-// const courses = [
-//   { href: "/course/hewarat", label: "الحوارات" },
-//   { href: "/course/lughatularabiya", label: "اللغته العربيه" },
-//   { href: "/course/qiratulrashida", label: "القراءة الراشدة" },
-//   { href: "/course/tajweed", label: "التجويد" },
-// ];
+
 type Subject = {
   id: number;
   title: string;

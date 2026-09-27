@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteSession, getCurrentUser } from "@/lib/auth/session";
+import { deleteSession } from "@/lib/auth/session";
 import { Button, Flex } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import type { currentUser } from "@/app/course/_components/NavbarCourse";

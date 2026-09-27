@@ -1,13 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { Table } from "@radix-ui/themes";
-import React from "react";
 import UserRoleSelect from "../_components/UserRoleSelect";
 import DeleteUserButton from "../_components/DeleteUserButton";
 import { Role } from "@prisma/client";
 import { requireAdmin } from "@/lib/auth/session";
 
 const PageUsers = async () => {
-  const user = await requireAdmin();
+  await requireAdmin();
   const users = await prisma.user.findMany();
   const uniqueRoles: Role[] = ["ADMIN", "TEACHER", "STUDENT"];
   return (
@@ -23,11 +22,11 @@ const PageUsers = async () => {
         </Table.Header>
         <Table.Body>
           {users.map((user) => (
-            <Table.Row key={user.id} >
+            <Table.Row key={user.id}>
               <Table.Cell>{user.name}</Table.Cell>
               <Table.Cell>{user.email}</Table.Cell>
               <Table.Cell>{user.role}</Table.Cell>
-              <Table.Cell >
+              <Table.Cell>
                 <UserRoleSelect
                   defaultRole={user.role}
                   roles={uniqueRoles}

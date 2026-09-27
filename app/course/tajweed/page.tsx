@@ -1,6 +1,5 @@
 import TajweedLesson from "../_components/TajweedLesson";
 import { prisma } from "@/lib/prisma";
-import DefinitionEntryForm from "../dataEntry/DefinitionEntryForm";
 import { Container } from "@radix-ui/themes/dist/cjs/components/index.js";
 import Link from "next/link";
 

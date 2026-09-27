@@ -1,5 +1,3 @@
-import { Box, Card, Container, Flex, Heading, Text } from "@radix-ui/themes";
-import Link from "next/link";
 import contentsList from "@/public/data/lughatularabiya/contentsList.json";
 import ContentList from "../_components/ContentList";
 

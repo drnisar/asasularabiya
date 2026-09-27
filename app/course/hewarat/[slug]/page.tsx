@@ -1,7 +1,6 @@
 import { Box, Container, Heading, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import WordMeaning from "../../_components/WordMeaning";
-import { prisma } from "@/lib/prisma";
 import { hewaratLessons } from "@/app/course/actions/hewarat";
 import FormWordMeaning from "../../_components/FormWordMeaning";
 import Link from "next/link";

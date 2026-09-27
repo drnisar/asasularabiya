@@ -2,10 +2,7 @@ import { Box } from "@radix-ui/themes";
 import React from "react";
 import { isAdmin } from "@/lib/auth/session";
 import ButtonDeleteWordMeaning from "@/app/course/_components/ButtonDeleteWordMeaning";
-import {
-  deleteWordMeaning,
-  getWordMeaningsBySlug,
-} from "@/app/course/actions/wordMeaning";
+import { getWordMeaningsBySlug } from "@/app/course/actions/wordMeaning";
 import { getLessonBySlug } from "@/app/course/actions/lesson";
 import FormWordMeaning from "@/app/course/_components/FormWordMeaning";
 

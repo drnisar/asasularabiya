@@ -3,8 +3,6 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { createSession } from "./session";
 
-import { verifyPassword } from "./password";
-
 type FormData = {
   email: string;
   password: string;

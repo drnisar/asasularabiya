@@ -3,10 +3,9 @@ import type { Lesson } from "@prisma/client";
 
 interface Props {
   lessons: Lesson[];
-  filterValue: number;
 }
 
-const LessonsList = ({ lessons, filterValue }: Props) => {
+const LessonsList = ({ lessons }: Props) => {
   return (
     <div>
       <h2>Lessons List</h2>

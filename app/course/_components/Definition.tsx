@@ -1,4 +1,4 @@
-import { Badge, Box, Card, Container, Heading, Text } from "@radix-ui/themes";
+import { Box, Card, Container, Heading, Text } from "@radix-ui/themes";
 
 type DefinitionLesson = {
   id: number;

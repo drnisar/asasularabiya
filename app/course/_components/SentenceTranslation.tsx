@@ -1,30 +1,12 @@
 "use client";
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Flex,
-  Table,
-  Text,
-} from "@radix-ui/themes";
-import React, { useState } from "react";
+import { Box, Button, Container, Flex, Text } from "@radix-ui/themes";
+import { useState } from "react";
 
 type SentencePair = {
   arabic: string;
   urdu: string;
 };
 
-// const sentence: SentencePair[] = [
-//   {
-//     arabic: "اذھب",
-//     urdu: "میں جاتا ہوں",
-//   },
-//   {
-//     arabic: "أنا ذاهب",
-//     urdu: "میں جا رہا ہوں",
-//   },
-// ];
 interface Props {
   sentencePairs: SentencePair[];
 }

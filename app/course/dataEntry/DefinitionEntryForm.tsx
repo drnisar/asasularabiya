@@ -31,8 +31,7 @@ interface Props {
 const DefinitionEntryForm = ({ subjectId, lesson }: Props) => {
   const router = useRouter();
 
-  const [editMode, setEditMode] = useState(false);
-
+  const editMode = Boolean(lesson);
   // Markdown editor values
   const [definition, setDefinition] = useState(lesson?.definition ?? "");
 
@@ -50,17 +49,17 @@ const DefinitionEntryForm = ({ subjectId, lesson }: Props) => {
     initialState,
   );
 
-  useEffect(() => {
-    if (lesson) {
-      setEditMode(true);
+  // useEffect(() => {
+  //   if (lesson) {
+  //     setEditMode(true);
 
-      setDefinition(lesson.definition ?? "");
-      setExplanation(lesson.explanation ?? "");
-      setExamples(lesson.examples ?? "");
-      setNote(lesson.note ?? "");
-      console.log("lesson.examples from state", examples);
-    }
-  }, [lesson]);
+  //     setDefinition(lesson.definition ?? "");
+  //     setExplanation(lesson.explanation ?? "");
+  //     setExamples(lesson.examples ?? "");
+  //     setNote(lesson.note ?? "");
+  //     console.log("lesson.examples from state", examples);
+  //   }
+  // }, [lesson]);
 
   useEffect(() => {
     if (state.success) {

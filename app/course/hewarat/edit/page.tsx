@@ -1,6 +1,4 @@
-import React from "react";
 import LessonForm from "../../_components/LessonForm";
-import type { Lesson } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/session";
 const PageHewaratLessonEdit = async ({
@@ -10,7 +8,7 @@ const PageHewaratLessonEdit = async ({
 }) => {
   const { lessonId } = await searchParams;
 
-  const user = await requireAdmin();
+  await requireAdmin();
 
   const lesson = await prisma.lesson.findUnique({
     where: { id: Number(lessonId) },

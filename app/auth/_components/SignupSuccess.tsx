@@ -11,7 +11,7 @@ const SignupSuccess = () => {
       <h1>Signup Successful!</h1>
       <p>
         Your account has been created successfully. Your default role is
-        "STUDENT".
+        STUDENT.
       </p>
       <Button onClick={() => router.push("/")}>Go to Home</Button>
     </div>

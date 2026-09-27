@@ -4,7 +4,6 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import AdminNavBar from "./auth/_components/AdminNavBar";
-import { requireAdmin } from "@/lib/auth/session";
 
 const notoNaskhArabic = Noto_Naskh_Arabic({
   variable: "--font-arabic",

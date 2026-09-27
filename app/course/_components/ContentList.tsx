@@ -17,7 +17,7 @@ interface Props {
   slugPrefix?: string;
 }
 
-const ContentList = ({ contents, title, arabicTitle, slugPrefix }: Props) => {
+const ContentList = ({ contents, arabicTitle, slugPrefix }: Props) => {
   return (
     <Box py={{ initial: "6", sm: "8" }}>
       <Container size="3" px={{ initial: "4", sm: "6" }}>

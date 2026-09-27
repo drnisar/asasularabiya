@@ -16,8 +16,6 @@ import {
   BlockTypeSelect,
 } from "@mdxeditor/editor";
 
-import type { MDXEditorProps } from "@mdxeditor/editor";
-
 const MDXEditor = dynamic(
   () => import("@mdxeditor/editor").then((mod) => mod.MDXEditor),
   {
