@@ -3,6 +3,8 @@ import { Noto_Naskh_Arabic } from "next/font/google";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import AdminNavBar from "./auth/_components/AdminNavBar";
+import { requireAdmin } from "@/lib/auth/session";
 
 const notoNaskhArabic = Noto_Naskh_Arabic({
   variable: "--font-arabic",
@@ -15,10 +17,15 @@ export const metadata: Metadata = {
   description: "Live Arabic courses for curious minds.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ar" dir="rtl" className={`${notoNaskhArabic.variable} h-full antialiased`}>
+    <html
+      lang="ar"
+      dir="rtl"
+      className={`${notoNaskhArabic.variable} h-full antialiased`}
+    >
       <body className="container min-h-full flex flex-col">
+        <AdminNavBar />
         <Theme accentColor="orange" grayColor="sand" radius="medium">
           {children}
         </Theme>

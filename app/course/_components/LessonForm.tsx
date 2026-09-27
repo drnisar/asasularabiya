@@ -1,19 +1,17 @@
 "use client";
-import { Button, Container, TextField, TextArea } from "@radix-ui/themes";
-import React, { useActionState, useState } from "react";
+
+import { Button, Container, TextField } from "@radix-ui/themes";
+import React from "react";
 import { useRouter } from "next/navigation";
 import type { Lesson } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+
 import {
   createLessonAction,
-  updateLesson,
   updateLessonAction,
 } from "@/app/course/actions/lesson";
+import MarkdownEditor from "./MarkdownEditor";
 
-const initialState = {
-  message: "",
-  success: false,
-};
 interface Props {
   subjectId: number;
   lesson?: Lesson;
@@ -22,74 +20,180 @@ interface Props {
 }
 
 const LessonForm = ({ subjectId, lesson, mode, id }: Props) => {
-  const { register, handleSubmit } = useForm<Lesson>({
+  const router = useRouter();
+
+  const { register, handleSubmit, control } = useForm<Lesson>({
     defaultValues: {
       subjectId,
+
       title: lesson?.title ?? "",
       arabicTitle: lesson?.arabicTitle ?? "",
       slug: lesson?.slug ?? "",
+
       definition: lesson?.definition ?? "",
       explanation: lesson?.explanation ?? "",
-      note: lesson?.note ?? "",
       examples: lesson?.examples ?? "",
+      note: lesson?.note ?? "",
     },
   });
 
-  const router = useRouter();
+  const onSubmit = async (data: Lesson) => {
+    try {
+      if (mode === "edit") {
+        if (!id) {
+          console.error("Lesson ID is missing");
+          return;
+        }
 
-  const onSubmit = (data: any) => {
-    if (mode === "edit") {
-      updateLessonAction(data, id!);
-    } else {
-      createLessonAction(data);
+        await updateLessonAction(data, id);
+      } else {
+        await createLessonAction(data);
+      }
+
+      router.push("/course/hewarat");
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to save lesson:", error);
     }
-    console.log(data as Lesson);
-    router.push("/course/hewarat");
   };
 
   return (
     <Container px="5">
-      <div>Lesson Form</div>
+      <div style={{ marginBottom: "1rem" }}>
+        <h2>{mode === "edit" ? "Edit Lesson" : "Create Lesson"}</h2>
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          {/* Subject ID */}
+          <TextField.Root
+            {...register("subjectId", {
+              valueAsNumber: true,
+            })}
+            value={subjectId}
+            readOnly
+          />
+
+          {/* Title */}
+          <TextField.Root {...register("title")} placeholder="انگلش ٹائیٹل" />
+
+          {/* Arabic Title */}
+          <TextField.Root
+            {...register("arabicTitle")}
+            placeholder="عربی ٹائیٹل"
+          />
+
+          {/* Slug */}
+          <TextField.Root {...register("slug")} placeholder="سلگ" />
+
+          {/* Definition */}
           <div>
-            <TextField.Root
-              {...register("subjectId")}
-              name="subjectId"
-              placeholder="Subject ID"
-              value={subjectId}
-              readOnly
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Definition
+            </label>
+
+            <Controller
+              name="definition"
+              control={control}
+              render={({ field }) => (
+                <MarkdownEditor
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  placeholder="Enter lesson definition..."
+                />
+              )}
             />
           </div>
-          <div className="">
-            <TextField.Root
-              {...register("title")}
-              name="title"
-              placeholder="انگلش ٹائیٹل"
-              defaultValue={lesson?.title ?? ""}
+
+          {/* Explanation */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Explanation
+            </label>
+
+            <Controller
+              name="explanation"
+              control={control}
+              render={({ field }) => (
+                <MarkdownEditor
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  placeholder="Enter lesson explanation..."
+                />
+              )}
             />
           </div>
-          <div className="">
-            <TextField.Root
-              {...register("arabicTitle")}
-              name="arabicTitle"
-              placeholder="عربی ٹائیٹل"
-              defaultValue={lesson?.arabicTitle ?? ""}
+
+          {/* Examples */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Examples
+            </label>
+
+            <Controller
+              name="examples"
+              control={control}
+              render={({ field }) => (
+                <MarkdownEditor
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  placeholder="Enter examples..."
+                />
+              )}
             />
           </div>
-          <div className="">
-            <TextField.Root
-              {...register("slug")}
-              name="slug"
-              placeholder="سلگ"
-              defaultValue={lesson?.slug ?? ""}
+
+          {/* Note */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Note
+            </label>
+
+            <Controller
+              name="note"
+              control={control}
+              render={({ field }) => (
+                <MarkdownEditor
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  placeholder="Enter notes..."
+                />
+              )}
             />
           </div>
-        </div>
-        <div>
-          <Button type="submit">
-            {mode === "edit" ? "Update Lesson" : "Create Lesson"}
-          </Button>
+
+          {/* Submit */}
+          <div>
+            <Button type="submit">
+              {mode === "edit" ? "Update Lesson" : "Create Lesson"}
+            </Button>
+          </div>
         </div>
       </form>
     </Container>

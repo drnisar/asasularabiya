@@ -20,3 +20,19 @@ export const createUser = async (data: UserData) => {
     },
   });
 };
+
+export const updateUserRole = async (
+  userId: number,
+  role: "ADMIN" | "TEACHER" | "STUDENT",
+) => {
+  return await prisma.user.update({
+    where: { id: userId },
+    data: { role },
+  });
+};
+
+export const deleteUser = async (userId: number) => {
+  return await prisma.user.delete({
+    where: { id: userId },
+  });
+};

@@ -1,14 +1,17 @@
 "use client";
-import { use, useActionState, useEffect, useState } from "react";
-import { Button, Container, TextArea, TextField } from "@radix-ui/themes";
-import { useSearchParams, useRouter } from "next/navigation";
+
+import { useActionState, useEffect, useState } from "react";
+import { Button, Container, TextField } from "@radix-ui/themes";
+import { useRouter } from "next/navigation";
+
 import { createLesson, updateLesson } from "@/app/course/actions/lesson";
-// import type { Lesson } from "@prisma/client";
+import MarkdownEditor from "../_components/MarkdownEditor";
 
 const initialState = {
   success: false,
   message: "",
 };
+
 interface Lesson {
   id?: number;
   title?: string;
@@ -24,9 +27,21 @@ interface Props {
   subjectId: number;
   lesson?: Lesson;
 }
+
 const DefinitionEntryForm = ({ subjectId, lesson }: Props) => {
   const router = useRouter();
+
   const [editMode, setEditMode] = useState(false);
+
+  // Markdown editor values
+  const [definition, setDefinition] = useState(lesson?.definition ?? "");
+
+  const [explanation, setExplanation] = useState(lesson?.explanation ?? "");
+
+  const [examples, setExamples] = useState(lesson?.examples ?? "");
+
+  const [note, setNote] = useState(lesson?.note ?? "");
+
   const [state, formAction, isPending] = useActionState(
     (_state: typeof initialState, formData: FormData) =>
       editMode
@@ -38,97 +53,168 @@ const DefinitionEntryForm = ({ subjectId, lesson }: Props) => {
   useEffect(() => {
     if (lesson) {
       setEditMode(true);
+
+      setDefinition(lesson.definition ?? "");
+      setExplanation(lesson.explanation ?? "");
+      setExamples(lesson.examples ?? "");
+      setNote(lesson.note ?? "");
+      console.log("lesson.examples from state", examples);
     }
   }, [lesson]);
+
   useEffect(() => {
     if (state.success) {
-      // router.replace(window.location.pathname);
-      router.push(`/course/tajweed`);
-      //   router.back();
+      router.push("/course/tajweed");
     }
-  }, [state.success]);
+  }, [state.success, router]);
+
   return (
-    <>
-      <Container>
-        <form action={formAction}>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-          >
-            <div>
-              <TextField.Root
-                name="subjectId"
-                placeholder="Subject ID"
-                value={subjectId}
-                readOnly
-              />
-            </div>
-            <div className="">
-              <TextField.Root
-                name="title"
-                placeholder="انگلش ٹائیٹل"
-                defaultValue={lesson?.title ?? ""}
-              />
-            </div>
-            <div className="">
-              <TextField.Root
-                name="arabicTitle"
-                placeholder="عربی ٹائیٹل"
-                defaultValue={lesson?.arabicTitle ?? ""}
-              />
-            </div>
-            <div className="">
-              <TextField.Root
-                name="slug"
-                placeholder="سلگ"
-                defaultValue={lesson?.slug ?? ""}
-              />
-            </div>
-            <div className="">
-              <TextField.Root
-                name="note"
-                placeholder="نوٹ"
-                defaultValue={lesson?.note ?? ""}
-              />
-            </div>
-            <div>
-              <TextArea
-                name="definition"
-                placeholder="تعریف"
-                defaultValue={lesson?.definition ?? ""}
-              />
-            </div>
-            <div>
-              <TextArea
-                name="explanation"
-                placeholder="تفصیل"
-                defaultValue={lesson?.explanation ?? ""}
-              />
-            </div>
-            <div>
-              <TextArea
-                name="examples"
-                placeholder="مثالیں"
-                defaultValue={lesson?.examples ?? ""}
-              />
-            </div>
-          </div>
+    <Container>
+      <form action={formAction}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          {/* Subject ID */}
+          <TextField.Root
+            name="subjectId"
+            placeholder="Subject ID"
+            value={subjectId}
+            readOnly
+          />
+
+          {/* Title */}
+          <TextField.Root
+            name="title"
+            placeholder="انگلش ٹائیٹل"
+            defaultValue={lesson?.title ?? ""}
+          />
+
+          {/* Arabic Title */}
+          <TextField.Root
+            name="arabicTitle"
+            placeholder="عربی ٹائیٹل"
+            defaultValue={lesson?.arabicTitle ?? ""}
+          />
+
+          {/* Slug */}
+          <TextField.Root
+            name="slug"
+            placeholder="سلگ"
+            defaultValue={lesson?.slug ?? ""}
+          />
+
+          {/* Note */}
           <div>
-            <Button type="submit">
-              {isPending
-                ? "Creating..."
-                : editMode
-                  ? "Update Lesson"
-                  : "Create Lesson"}
-            </Button>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              نوٹ
+            </label>
+
+            <MarkdownEditor
+              value={note}
+              onChange={setNote}
+              placeholder="نوٹ درج کریں..."
+            />
+
+            {/* Send Markdown value with FormData */}
+            <input type="hidden" name="note" value={note} />
           </div>
-          {state.message && (
-            <div style={{ color: state.success ? "green" : "red" }}>
-              {state.message}
-            </div>
-          )}
-        </form>
-      </Container>
-    </>
+
+          {/* Definition */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              تعریف
+            </label>
+
+            <MarkdownEditor
+              value={definition}
+              onChange={setDefinition}
+              placeholder="تعریف درج کریں..."
+            />
+
+            <input type="hidden" name="definition" value={definition} />
+          </div>
+
+          {/* Explanation */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              تفصیل
+            </label>
+
+            <MarkdownEditor
+              value={explanation}
+              onChange={setExplanation}
+              placeholder="تفصیل درج کریں..."
+            />
+
+            <input type="hidden" name="explanation" value={explanation} />
+          </div>
+
+          {/* Examples */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+              }}
+            >
+              مثالیں
+            </label>
+
+            <MarkdownEditor
+              value={examples}
+              onChange={setExamples}
+              placeholder="مثالیں درج کریں..."
+            />
+
+            <input type="hidden" name="examples" value={examples} />
+          </div>
+        </div>
+
+        {/* Submit */}
+        <div style={{ marginTop: "1rem" }}>
+          <Button type="submit" disabled={isPending}>
+            {isPending
+              ? editMode
+                ? "Updating..."
+                : "Creating..."
+              : editMode
+                ? "Update Lesson"
+                : "Create Lesson"}
+          </Button>
+        </div>
+
+        {/* Action message */}
+        {state.message && (
+          <div
+            style={{
+              marginTop: "1rem",
+              color: state.success ? "green" : "red",
+            }}
+          >
+            {state.message}
+          </div>
+        )}
+      </form>
+    </Container>
   );
 };
 

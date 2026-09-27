@@ -10,6 +10,7 @@ import {
 } from "@radix-ui/themes";
 import type { Lesson } from "@prisma/client";
 import Link from "next/link";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 interface Props {
   lesson: Lesson;
@@ -43,9 +44,10 @@ const TajweedLesson = ({ lesson }: Props) => (
             تفصیل
           </Text>
 
-          <Text as="p" size={{ initial: "3", sm: "4" }} color="gray">
+          {/* <Text as="p" size={{ initial: "3", sm: "4" }} color="gray">
             {lesson.explanation}
-          </Text>
+          </Text> */}
+          <MarkdownRenderer content={lesson.explanation} />
           <Text as="p" size="2" weight="bold" color="orange" mb="2">
             مثالیں
           </Text>

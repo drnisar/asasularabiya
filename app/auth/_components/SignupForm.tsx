@@ -1,9 +1,9 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { Flex, TextField, Button } from "@radix-ui/themes";
-
-import React from "react";
 import { signup } from "@/lib/auth/signup";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type FormData = {
   name: string;
@@ -14,10 +14,20 @@ type FormData = {
 
 const SignupForm = () => {
   const { register, handleSubmit } = useForm<FormData>();
+  const [signupMessage, setSignupMessage] = useState("");
+  const router = useRouter();
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     console.log(data);
-    signup(data);
+    const result = await signup(data);
+    setSignupMessage(result.message);
+    if (!result.success) {
+      return;
+    } else {
+      setTimeout(() => {
+        router.push("/auth/signup/signupSuccess");
+      }, 2000);
+    }
   };
   return (
     <div dir="ltr" className="px-2 mx-auto my-30 max-w-sm border p-4 rounded">
@@ -66,6 +76,7 @@ const SignupForm = () => {
           </label>
 
           <Button type="submit">Sign Up</Button>
+          {signupMessage && <p>{signupMessage}</p>}
         </Flex>
       </form>
     </div>

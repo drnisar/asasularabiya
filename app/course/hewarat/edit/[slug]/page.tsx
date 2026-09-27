@@ -1,5 +1,6 @@
 import { Box } from "@radix-ui/themes";
 import React from "react";
+import { isAdmin } from "@/lib/auth/session";
 import ButtonDeleteWordMeaning from "@/app/course/_components/ButtonDeleteWordMeaning";
 import {
   deleteWordMeaning,
@@ -24,6 +25,18 @@ const PageHewaratSingleLesson = async ({
       </Box>
     );
   }
+  const userIsAdmin = await isAdmin();
+  if (!userIsAdmin)
+    return (
+      <Box
+        dir="ltr"
+        px={{ initial: "2", sm: "6" }}
+        mx={"auto"}
+        maxWidth="1200px"
+      >
+        Access denied.
+      </Box>
+    );
   return (
     <Box px={{ initial: "2", sm: "6" }} mx={"auto"} maxWidth="1200px">
       <table>
@@ -40,7 +53,7 @@ const PageHewaratSingleLesson = async ({
               <td style={{ textAlign: "right" }}>{meaning.arabic}</td>
               <td>{meaning.urdu}</td>
               <td>
-                <ButtonDeleteWordMeaning id={meaning.id} />
+                {userIsAdmin && <ButtonDeleteWordMeaning id={meaning.id} />}
               </td>
             </tr>
           ))}

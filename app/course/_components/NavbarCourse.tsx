@@ -1,6 +1,8 @@
 "use client";
 
-import { Flex } from "@radix-ui/themes";
+import { Role, User } from "@prisma/client";
+import { Button } from "@radix-ui/themes";
+import LogoutButton from "@/app/auth/_components/LogoutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -18,10 +20,18 @@ type Subject = {
   urdu: string;
   slug: string;
 };
+
+export type currentUser = {
+  id: number | undefined;
+  name: string | undefined;
+  email: string | undefined;
+  role: Role | undefined;
+};
 interface Props {
   subjects: Subject[];
+  currentUser?: currentUser;
 }
-export default function NavbarCourse({ subjects }: Props) {
+export default function NavbarCourse({ subjects, currentUser }: Props) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -93,12 +103,16 @@ export default function NavbarCourse({ subjects }: Props) {
           })}
         </nav>
         <nav>
-          <Link
-            className="font-serif text-xl font-semibold tracking-wide"
-            href="/auth/login"
-          >
-            Login
-          </Link>
+          {!currentUser ? (
+            <Link
+              className="font-serif text-xl font-semibold tracking-wide"
+              href="/auth/login"
+            >
+              Login
+            </Link>
+          ) : (
+            <LogoutButton user={currentUser} />
+          )}
         </nav>
       </div>
     </header>

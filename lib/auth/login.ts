@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { createSession } from "./session";
 
 import { verifyPassword } from "./password";
 
@@ -28,6 +29,7 @@ export async function login(data: FormData) {
   // Check if the password is correct
   const isPasswordValid = await bcrypt.compare(password, user.hashedPassword);
   if (isPasswordValid) {
+    await createSession(user.id);
     return { success: true, text: "Login successful" };
   } else {
     return { success: false, text: "Invalid password" };

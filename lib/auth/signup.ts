@@ -9,9 +9,11 @@ export async function signup(data: {
 }) {
   // Implement your signup logic here
   const { name, email, password, confirmPassword } = data;
-  if (password !== confirmPassword) {
-    throw new Error("Passwords do not match");
-  }
+  if (password !== confirmPassword)
+    return {
+      success: false,
+      message: "Passwords do not match",
+    };
 
   // find if user exists
   const user = await prisma.user.findUnique({
@@ -19,12 +21,12 @@ export async function signup(data: {
       email,
     },
   });
-  if (user) {
+  if (user)
     return {
       success: false,
       message: "User already exists",
     };
-  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
   console.log(data);
   console.log(hashedPassword);
