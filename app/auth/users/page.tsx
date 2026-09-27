@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { Table } from "@radix-ui/themes";
 import UserRoleSelect from "../_components/UserRoleSelect";
 import DeleteUserButton from "../_components/DeleteUserButton";
-import { Role } from "@prisma/client";
+import { Role } from "@/lib/appConstants";
 import { requireAdmin } from "@/lib/auth/session";
 
 const PageUsers = async () => {
