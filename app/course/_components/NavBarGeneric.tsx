@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import NavBarDropdown from "./NavBarDropdown";
 
 type Section = {
   arabicTitle: string;

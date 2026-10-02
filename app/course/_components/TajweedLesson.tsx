@@ -28,9 +28,7 @@ const TajweedLesson = ({ lesson }: Props) => (
           <Text as="p" size="2" weight="bold" color="orange" mb="2">
             تعریف
           </Text>
-          <Heading size={{ initial: "5", sm: "6" }} mb="3">
-            {lesson.definition}
-          </Heading>
+          <MarkdownRenderer content={lesson.definition} />
           <Text as="p" size="2" weight="bold" color="orange" mb="2">
             تفصیل
           </Text>
@@ -43,9 +41,7 @@ const TajweedLesson = ({ lesson }: Props) => (
             مثالیں
           </Text>
 
-          <Text as="p" size={{ initial: "3", sm: "4" }} color="gray">
-            {lesson.examples}
-          </Text>
+          <MarkdownRenderer content={lesson.examples} />
           <Link href={`/course/tajweed/${lesson.id}?mode=edit`} passHref>
             <Text as="p" size="2" weight="bold" color="blue" mb="2">
               Edit
